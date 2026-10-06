@@ -404,7 +404,7 @@ export default function App() {
         <FeedbackSection />
       </main>
 
-      {/* SECTION 12: PeaceGhost Footer */}
+      {/* SECTION 12: EXAMIFY Footer */}
       <Footer />
 
       {/* FULLSCREEN FOCUS ROOM MODAL */}
