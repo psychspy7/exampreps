@@ -14,6 +14,19 @@ export const StudyProgressSection: React.FC<StudyProgressSectionProps> = ({
   const totalHours = (totalFocusMinutes / 60).toFixed(1);
   const totalSessions = sessions.length;
   const avgMins = totalSessions > 0 ? Math.round(totalFocusMinutes / totalSessions) : 0;
+  const ratingScores: Record<NonNullable<FocusSession['rating']>, number> = {
+    excellent: 100,
+    good: 82,
+    average: 64,
+    difficult: 45
+  };
+  const ratedSessions = sessions.filter((session) => session.rating);
+  const qualityScore = ratedSessions.length
+    ? Math.round(
+        ratedSessions.reduce((sum, session) => sum + ratingScores[session.rating!], 0) /
+          ratedSessions.length
+      )
+    : null;
 
   return (
     <section className="py-16 bg-slate-950 border-b border-slate-800/80">
@@ -77,9 +90,9 @@ export const StudyProgressSection: React.FC<StudyProgressSectionProps> = ({
               <Trophy className="w-4 h-4 text-amber-400" />
             </div>
             <div className="text-3xl font-black font-mono text-amber-400">
-              {totalSessions > 0 ? '94%' : 'N/A'}
+              {qualityScore !== null ? `${qualityScore}%` : 'N/A'}
             </div>
-            <span className="text-[11px] text-slate-500 mt-1 block">Focus efficiency rating</span>
+            <span className="text-[11px] text-slate-500 mt-1 block">Average self-rated session quality</span>
           </div>
 
         </div>
