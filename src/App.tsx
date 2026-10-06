@@ -201,16 +201,24 @@ export default function App() {
   };
 
   const handleSaveCompletedSession = (
-    minutes: number, 
-    rating?: 'excellent' | 'good' | 'average' | 'difficult', 
-    task?: string, 
+    minutes: number,
+    rating?: 'excellent' | 'good' | 'average' | 'difficult',
+    task?: string,
     note?: string
   ) => {
+    const now = new Date();
+    const todayStr = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, '0'),
+      String(now.getDate()).padStart(2, '0')
+    ].join('-');
+
     const newSession: FocusSession = {
       id: `session-${Date.now()}`,
       task_name: task || 'Focus Study Block',
       duration_minutes: minutes,
-      completed_at: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      completed_at: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      completed_on: todayStr,
       rating: rating || 'good',
       reflection: note || ''
     };
@@ -222,12 +230,6 @@ export default function App() {
     // - Same calendar day: no change
     // - Next consecutive day: +1
     // - If one or more days were missed: reset to 1
-    const now = new Date();
-    const todayStr = [
-      now.getFullYear(),
-      String(now.getMonth() + 1).padStart(2, '0'),
-      String(now.getDate()).padStart(2, '0')
-    ].join('-');
     const lastStudied = localStorage.getItem(STORAGE_KEYS.LAST_STUDIED_DATE);
 
     if (lastStudied !== todayStr) {
@@ -263,9 +265,18 @@ export default function App() {
   };
 
   const targetExam = exams.find(e => e.id === targetExamId) || null;
-  const currentVibe = vibes.find(v => v.id === selectedVibeId) || vibes[0];
+  const currentVibe = vibes.find(v => v.id === selectedVibeId) || vibes[0] || null;
 
   const totalFocusMinutes = sessions.reduce((acc, s) => acc + s.duration_minutes, 0);
+  const nowForDailyProgress = new Date();
+  const todayKey = [
+    nowForDailyProgress.getFullYear(),
+    String(nowForDailyProgress.getMonth() + 1).padStart(2, '0'),
+    String(nowForDailyProgress.getDate()).padStart(2, '0')
+  ].join('-');
+  const todayFocusMinutes = sessions
+    .filter(session => session.completed_on === todayKey)
+    .reduce((acc, session) => acc + session.duration_minutes, 0);
 
   // The admin dashboard lives on its own hidden path (/admins) and is never
   // linked from the public site — no button, no icon, nothing to discover.
@@ -291,12 +302,15 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white font-sans relative overflow-x-hidden selection:bg-orange-500 selection:text-slate-950">
-      
-      {/* Immersive UI Background Atmosphere Layers */}
-      <div className="fixed inset-0 formula-bg opacity-30 pointer-events-none z-0"></div>
-      <div className="fixed inset-0 lamp-glow pointer-events-none z-0"></div>
-      <div className="fixed inset-0 vignette pointer-events-none z-0"></div>
+    <div className="min-h-screen bg-[#05070a] text-white font-sans relative overflow-x-hidden selection:bg-[#e0231c] selection:text-white">
+      {/* Cinematic atmosphere inspired by the Kage reference, kept lightweight for EXAMIFY. */}
+      <div className="fixed inset-0 examify-world pointer-events-none z-0" aria-hidden="true" />
+      <div className="examify-orb examify-orb--red z-0" aria-hidden="true" />
+      <div className="examify-orb examify-orb--gold z-0" aria-hidden="true" />
+      <div className="fixed inset-0 formula-bg opacity-30 pointer-events-none z-0" aria-hidden="true" />
+      <div className="fixed inset-0 lamp-glow pointer-events-none z-0" aria-hidden="true" />
+      <div className="fixed inset-0 vignette pointer-events-none z-0" aria-hidden="true" />
+      <div className="fixed inset-0 examify-grain pointer-events-none z-0" aria-hidden="true" />
 
       <div className="relative z-10">
         {/* 1. Header Navigation */}
@@ -350,7 +364,7 @@ export default function App() {
 
         {/* SECTION 4: "Your Future Is Being Built Today" Motivational Check-in */}
         <MotivationalSection
-          completedMinutesToday={totalFocusMinutes}
+          completedMinutesToday={todayFocusMinutes}
           dailyTargetHours={4}
           streakDays={streakDays}
           onStartFocusSession={() => setFocusRoomOpen(true)}
