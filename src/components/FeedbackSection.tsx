@@ -61,10 +61,10 @@ export const FeedbackSection: React.FC = () => {
               <span>COMMUNITY FEEDBACK & EXAM REQUESTS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-              REQUEST AN EXAM OR SUPPORT PEACEGHOST
+              REQUEST AN EXAM OR HELP IMPROVE EXAMIFY
             </h2>
             <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-              Have any other exam you want us to add? Want to support us or send PeaceGhost a message? Leave your feedback below — all messages go directly to the Admin Panel!
+              Have any other exam you want us to add? Found something we can improve? Leave your feedback below — all messages go directly to the Admin Panel!
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export const FeedbackSection: React.FC = () => {
                 FEEDBACK RECEIVED WITH GRATITUDE
               </h3>
               <p className="text-xs text-slate-300">
-                Thank you for contributing to the PeaceGhost Study System.
+                Thank you for helping make EXAMIFY better.
               </p>
             </div>
           ) : (
@@ -154,7 +154,7 @@ export const FeedbackSection: React.FC = () => {
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Share your thoughts, exam requests, or experience with EXAM//COUNTDOWN..."
+                  placeholder="Share your thoughts, exam requests, or experience with EXAMIFY..."
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-amber-500"
                 />
               </div>
@@ -179,7 +179,7 @@ export const FeedbackSection: React.FC = () => {
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>SUBMIT FEEDBACK TO PEACEGHOST</span>
+                    <span>SEND FEEDBACK</span>
                   </>
                 )}
               </button>
