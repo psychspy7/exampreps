@@ -265,7 +265,7 @@ export async function adminDeleteExam(id: string): Promise<void> {
 export async function adminUpsertQuote(quote: Partial<MotivationalQuote> & { id?: string }): Promise<MotivationalQuote> {
   const row = {
     text: quote.text,
-    author: quote.author || 'PeaceGhost Study System',
+    author: quote.author || 'EXAMIFY',
     category: quote.category,
     is_featured: quote.is_featured ?? false,
     is_active: quote.is_active ?? true
