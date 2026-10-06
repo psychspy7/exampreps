@@ -83,11 +83,7 @@ that grants access.
    ambient tracks, and read/delete feedback submissions — every action goes
    straight to Supabase and is re-checked by RLS server-side.
 
-A bootstrap admin account already exists on the deployed project
-(`admin@peaceghost`) with a freshly-generated password that was provided to
-you outside this repo. **Sign in and change it immediately** (Supabase
-Dashboard → Authentication → Users → that user → reset password), or delete
-it and create your own via the steps above.
+For production, create and manage administrator accounts privately in Supabase Authentication. Do not publish administrator identifiers or credentials in the repository.
 
 ## What's intentionally *not* backed by Supabase
 
