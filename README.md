@@ -1,6 +1,6 @@
-# EXAM//COUNTDOWN — Digital Study Sanctuary
+# EXAMIFY — Focus. Track. Finish.
 
-A cinematic exam-countdown and focus-study site (JEE / NEET / NDA / CUET), backed
+A cinematic exam countdown, focus and study-progress dashboard (JEE / NEET / NDA / CUET), backed
 by a real, production Supabase database: exams, motivational quotes, study
 vibes, ambient audio tracks, and a moderated public feedback inbox are all
 served from Postgres with Row Level Security — not localStorage, not mock data.
