@@ -1,6 +1,6 @@
 {
-  "name": "EXAM//COUNTDOWN — Digital Study Sanctuary",
-  "description": "A cinematic digital study sanctuary with exam countdowns, ambient audio, study vibes, deep focus room, motivation system, and analytics — backed by Supabase.",
+  "name": "EXAMIFY — Focus. Track. Finish.",
+  "description": "A cinematic study dashboard for exam countdowns, focus sessions, study streaks, ambient study modes, journals and progress tracking.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

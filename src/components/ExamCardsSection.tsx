@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, CheckCircle2, AlertCircle, Target, ArrowRight, Zap, BookOpen } from 'lucide-react';
 import { Exam } from '../types';
 import { calculateTimeRemaining } from '../lib/quoteSystem';
@@ -16,6 +16,13 @@ export const ExamCardsSection: React.FC<ExamCardsSectionProps> = ({
   onSelectTargetExam,
   onFocusOnExam
 }) => {
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setTick((value) => value + 1), 1000);
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <section id="exams-section" className="py-20 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +58,7 @@ export const ExamCardsSection: React.FC<ExamCardsSectionProps> = ({
             return (
               <div
                 key={exam.id}
-                className={`relative flex flex-col justify-between p-6 rounded-3xl glass transition-all duration-300 ${
+                className={`relative flex flex-col justify-between p-6 rounded-3xl examify-card transition-all duration-300 ${
                   isTarget
                     ? 'border-orange-500/60 ring-1 ring-orange-500/30 shadow-2xl shadow-orange-500/10'
                     : 'hover:border-white/20'

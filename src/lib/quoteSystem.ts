@@ -52,7 +52,7 @@ export function getRandomQuote(quotes: MotivationalQuote[], category?: QuoteCate
     return {
       id: 'fallback',
       text: 'KNOW THE DATE. USE THE TIME. BUILD THE RESULT.',
-      author: 'PeaceGhost Study System',
+      author: 'EXAMIFY',
       category: 'discipline',
       is_active: true
     };

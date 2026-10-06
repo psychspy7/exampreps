@@ -15,7 +15,7 @@ export const StudyJournalSection: React.FC<StudyJournalSectionProps> = ({
 }) => {
   const [content, setContent] = useState<string>('');
   const [tagInput, setTagInput] = useState<string>('');
-  const [tags, setTags] = useState<string[]>(['Solved 30 PYQs', 'Revised Organic Mechanisms']);
+  const [tags, setTags] = useState<string[]>([]);
   const [rating, setRating] = useState<string>('🔥 Productive');
 
   const handleAddTag = () => {

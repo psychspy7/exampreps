@@ -11,7 +11,7 @@ export const TodayQuoteSection: React.FC<TodayQuoteSectionProps> = ({ quotes }) 
   const featuredQuote = quotes.find(q => q.is_featured) || quotes[0] || {
     id: 'f1',
     text: 'KNOW THE DATE. USE THE TIME. BUILD THE RESULT.',
-    author: 'PeaceGhost Study System',
+    author: 'EXAMIFY',
     category: 'discipline'
   };
 

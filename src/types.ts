@@ -102,6 +102,7 @@ export interface FocusSession {
   task_name: string;
   duration_minutes: number;
   completed_at: string;
+  completed_on?: string; // YYYY-MM-DD, used for accurate daily progress
   rating?: 'excellent' | 'good' | 'average' | 'difficult';
   reflection?: string;
   subject?: string;

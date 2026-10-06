@@ -54,7 +54,7 @@ export const MotivationalSection: React.FC<MotivationalSectionProps> = ({
                   className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase shadow-lg shadow-amber-500/20 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all"
                 >
                   <Play className="w-4 h-4 fill-slate-950" />
-                  <span>START TODAY'S FIRST SESSION</span>
+                  <span>{completedMinutesToday > 0 ? 'START ANOTHER SESSION' : "START TODAY'S FIRST SESSION"}</span>
                 </button>
               </div>
             </div>

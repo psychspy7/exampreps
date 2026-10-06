@@ -1,56 +1,41 @@
 import React from 'react';
-import { Sparkles, ExternalLink, Heart, Shield } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800/80 text-slate-400 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center space-y-6">
-        
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-            <Sparkles className="w-4 h-4" />
+    <footer className="relative overflow-hidden border-t border-white/[0.07] bg-[#05070a] text-slate-400 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_120%,rgba(224,35,28,.10),transparent_35%)]" />
+
+      <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#e0231c] shadow-[0_0_20px_rgba(224,35,28,.7)]" />
+            <span className="text-xl font-semibold tracking-[0.24em] text-white">EXAMIFY</span>
           </div>
-          <span className="text-lg font-black tracking-widest text-white font-mono">
-            EXAM<span className="text-amber-400">//</span>COUNTDOWN
-          </span>
+
+          <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
+            A quieter place to track the date, protect your focus and keep showing up.
+          </p>
+
+          <p className="mt-5 text-[10px] uppercase tracking-[0.18em] text-slate-600">
+            Focus. Track. Finish.
+          </p>
         </div>
 
-        {/* Motto */}
-        <div className="text-sm font-mono font-bold tracking-widest text-slate-300 uppercase">
-          KNOW THE DATE. USE THE TIME. BUILD THE RESULT.
-        </div>
-
-        <p className="text-xs text-slate-500 max-w-md">
-          A cinematic digital study sanctuary engineered for ambitious students striving for rank excellence across national entrance exams.
-        </p>
-
-        {/* PeaceGhost Branding Spotlight */}
-        <div className="pt-6 border-t border-slate-900 w-full max-w-lg flex flex-col items-center justify-center gap-3">
-          
+        <div className="md:text-right">
           <a
-            href="https://peaceghosts.netlify.app"
+            href="https://kittycorp.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 text-amber-300 font-mono font-bold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.25)] hover:shadow-[0_0_35px_rgba(245,158,11,0.45)] transition-all duration-300 scale-100 hover:scale-105"
+            className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors"
           >
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
-              <Sparkles className="w-3.5 h-3.5" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-[9px] text-slate-400 font-bold tracking-widest uppercase">OFFICIAL SYSTEM ARCHITECT</span>
-              <span className="text-xs font-black text-white group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                MANAGED BY PEACEGHOST
-                <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
-              </span>
-            </div>
+            <span>A Kitty Corp product</span>
+            <ExternalLink className="w-3.5 h-3.5 text-[#ff7563]" />
           </a>
-
-          <span className="text-[11px] font-mono text-slate-600">
-            © {new Date().getFullYear()} EXAM//COUNTDOWN STUDY SANCTUARY
-          </span>
+          <div className="mt-3 text-[10px] uppercase tracking-[0.16em] text-slate-700">
+            © {new Date().getFullYear()} EXAMIFY
+          </div>
         </div>
-
       </div>
     </footer>
   );
