@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Sparkles, 
-  Flame, 
-  Clock, 
-  Volume2, 
-  VolumeX, 
-  ShieldCheck, 
-  Compass, 
-  Menu, 
+import React, { useEffect, useState } from 'react';
+import {
+  Flame,
+  Clock,
+  Volume2,
+  VolumeX,
+  Compass,
+  Menu,
   X,
   Target,
   MessageCircle,
@@ -23,7 +21,6 @@ interface NavbarProps {
   targetExam: Exam | null;
   onSelectTargetExam: (examId: string) => void;
   onOpenFocusRoom: () => void;
-  onOpenAdmin: () => void;
   streakDays: number;
   currentAudioCategory: AmbientCategory;
   onToggleAudio: () => void;
@@ -35,136 +32,110 @@ export const Navbar: React.FC<NavbarProps> = ({
   targetExam,
   onSelectTargetExam,
   onOpenFocusRoom,
-  onOpenAdmin,
   streakDays,
   currentAudioCategory,
   onToggleAudio,
   isAudioPlaying
 }) => {
-  const [timeStr, setTimeStr] = useState<string>('');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [timeStr, setTimeStr] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
       setTimeStr(
-        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })
       );
     };
+
     updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    const interval = window.setInterval(updateTime, 1000);
+    return () => window.clearInterval(interval);
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full glass border-b border-white/10 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
-        {/* Brand Logo */}
-        <div className="flex items-center gap-3">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse glow-orange"></div>
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold tracking-[0.3em] uppercase opacity-90 text-white font-sans">
-                EXAM<span className="text-orange-400">//</span>COUNTDOWN
-              </span>
-            </div>
-          </a>
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.07] bg-[#05070a]/78 backdrop-blur-2xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <a href="/" className="flex items-center gap-3 min-w-0 group" aria-label="EXAMIFY home">
+          <span className="relative grid place-items-center w-9 h-9 rounded-full border border-white/10 bg-white/[0.035] overflow-hidden">
+            <span className="absolute inset-1 rounded-full bg-[#e0231c]/15 blur-sm" />
+            <span className="relative w-2.5 h-2.5 rounded-full bg-[#e0231c] shadow-[0_0_20px_rgba(224,35,28,.75)]" />
+          </span>
 
-          {/* Managed by PeaceGhost Spotlight Pill */}
-          <a
-            href="https://peaceghosts.netlify.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 hover:text-amber-300 text-[10px] font-mono font-bold tracking-wider hover:border-amber-400 transition-all shadow-[0_0_15px_rgba(245,158,11,0.15)]"
-          >
-            <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />
-            <span>MANAGED BY PEACEGHOST</span>
-          </a>
+          <span className="flex flex-col min-w-0">
+            <span className="text-sm font-semibold tracking-[0.28em] text-white leading-none">
+              EXAMIFY
+            </span>
+            <span className="mt-1 text-[8px] uppercase tracking-[0.34em] text-slate-500">
+              Focus system
+            </span>
+          </span>
+        </a>
 
-          {/* Streak Indicator */}
-          <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full glass border border-orange-500/30 text-orange-400 text-[11px] font-semibold tracking-wider">
-            <Flame className="w-3.5 h-3.5 fill-orange-400 text-orange-500 animate-pulse" />
-            <span>{streakDays} DAY STREAK</span>
-          </div>
+        <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#e0231c]/20 bg-[#e0231c]/[0.06] text-[10px] font-semibold tracking-[0.16em] text-[#ff7563]">
+          <Flame className="w-3.5 h-3.5 fill-[#e0231c] text-[#e0231c]" />
+          <span>{streakDays} DAY STREAK</span>
         </div>
 
-        {/* Desktop Quick Tools */}
-        <div className="hidden lg:flex items-center gap-3">
-          
-          {/* Target Exam Dropdown */}
-          <div className="flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-slate-300">
-            <Target className="w-3.5 h-3.5 text-orange-400" />
-            <span className="text-slate-400 font-medium">TARGET:</span>
+        <div className="hidden lg:flex items-center gap-2 ml-auto">
+          <label className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 py-2 text-xs text-slate-300">
+            <Target className="w-3.5 h-3.5 text-[#ff6a55]" />
+            <span className="text-slate-500 font-medium">Target</span>
             <select
               value={targetExam?.id || ''}
-              onChange={(e) => onSelectTargetExam(e.target.value)}
-              className="bg-transparent text-white font-semibold cursor-pointer focus:outline-none"
+              onChange={(event) => onSelectTargetExam(event.target.value)}
+              className="max-w-[180px] bg-transparent text-white font-medium cursor-pointer focus:outline-none"
+              aria-label="Target exam"
             >
-              {exams.map((ex) => (
-                <option key={ex.id} value={ex.id} className="bg-slate-900 text-white">
-                  {ex.name}
+              <option value="" disabled className="bg-[#0a0e12]">Choose exam</option>
+              {exams.map((exam) => (
+                <option key={exam.id} value={exam.id} className="bg-[#0a0e12] text-white">
+                  {exam.name}
                 </option>
               ))}
             </select>
-          </div>
+          </label>
 
-          {/* Live Clock */}
-          <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-slate-300 glass px-4 py-1.5 rounded-full">
-            <Clock className="w-3.5 h-3.5 text-orange-400" />
+          <div className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.025] px-3.5 py-2 text-xs font-mono text-slate-300">
+            <Clock className="w-3.5 h-3.5 text-[#ff6a55]" />
             <span>{timeStr || '00:00:00'}</span>
           </div>
 
-          {/* Ambience Quick Audio Toggle */}
           <button
+            type="button"
             onClick={onToggleAudio}
-            className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-full border text-xs font-medium transition-all ${
               isAudioPlaying
-                ? 'bg-orange-500/20 border border-orange-500/40 text-orange-300'
-                : 'glass text-slate-400 hover:text-white'
+                ? 'border-[#e0231c]/35 bg-[#e0231c]/10 text-[#ff8a78]'
+                : 'border-white/[0.08] bg-white/[0.025] text-slate-400 hover:text-white'
             }`}
-            title="Toggle Ambient Audio"
+            title="Toggle ambient audio"
           >
-            {isAudioPlaying ? (
-              <>
-                <Volume2 className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
-                <span className="uppercase font-mono text-[11px]">{currentAudioCategory}</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-3.5 h-3.5" />
-                <span>SOUND OFF</span>
-              </>
-            )}
+            {isAudioPlaying ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span className="uppercase text-[10px] tracking-wider">
+              {isAudioPlaying ? currentAudioCategory : 'Sound off'}
+            </span>
           </button>
 
-          {/* Start Focus Button */}
           <button
+            type="button"
             onClick={onOpenFocusRoom}
-            className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase hover:scale-105 transition-all cursor-pointer shadow-lg"
+            className="flex items-center gap-2 px-5 py-2 rounded-full bg-[#e7eee9] text-[#05070a] font-bold text-[11px] tracking-[0.13em] uppercase hover:bg-white hover:-translate-y-0.5 transition-all shadow-[0_10px_30px_rgba(0,0,0,.25)]"
           >
-            <Compass className="w-3.5 h-3.5 fill-black text-black" />
-            <span>FOCUS ROOM</span>
+            <Compass className="w-3.5 h-3.5" />
+            <span>Focus room</span>
           </button>
 
-          {/* Admin Panel Button */}
-          <button
-            onClick={onOpenAdmin}
-            className="p-2 rounded-full glass text-slate-400 hover:text-white transition-all cursor-pointer"
-            title="Admin Control Panel"
-          >
-            <ShieldCheck className="w-4 h-4" />
-          </button>
-
-          {/* Contact Us: WhatsApp + Instagram */}
-          <div className="flex items-center gap-1.5 pl-1 border-l border-white/10 ml-1">
+          <div className="flex items-center gap-1 pl-1 ml-1 border-l border-white/[0.08]">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Contact us on WhatsApp"
-              className="p-2 rounded-full glass text-slate-400 hover:text-emerald-400 transition-all cursor-pointer"
-              title="Contact us on WhatsApp"
+              aria-label="EXAMIFY WhatsApp"
+              className="p-2 rounded-full text-slate-500 hover:text-emerald-400 hover:bg-white/[0.04] transition-all"
             >
               <MessageCircle className="w-4 h-4" />
             </a>
@@ -172,55 +143,57 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Follow us on Instagram"
-              className="p-2 rounded-full glass text-slate-400 hover:text-pink-400 transition-all cursor-pointer"
-              title="Follow us on Instagram"
+              aria-label="EXAMIFY Instagram"
+              className="p-2 rounded-full text-slate-500 hover:text-pink-400 hover:bg-white/[0.04] transition-all"
             >
               <Instagram className="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        {/* Mobile menu trigger */}
         <div className="flex items-center gap-2 lg:hidden">
           <button
+            type="button"
             onClick={onOpenFocusRoom}
-            className="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-black text-xs tracking-wider uppercase shadow-md shadow-amber-500/20"
+            className="px-3.5 py-2 rounded-full bg-[#e7eee9] text-[#05070a] font-bold text-[10px] tracking-[0.14em] uppercase"
           >
-            FOCUS
+            Focus
           </button>
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300"
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="p-2 rounded-full border border-white/[0.09] bg-white/[0.03] text-slate-300"
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-800 bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-5 space-y-3">
-          <div className="flex items-center justify-between text-xs font-mono text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-            <span className="text-slate-400">LOCAL TIME:</span>
-            <span className="font-bold text-amber-400">{timeStr}</span>
+        <div className="lg:hidden border-t border-white/[0.06] bg-[#05070a]/95 backdrop-blur-2xl px-4 pt-4 pb-5 space-y-3 animate-fade-in">
+          <div className="flex items-center justify-between text-xs font-mono text-slate-300 examify-card p-3 rounded-xl">
+            <span className="text-slate-500">LOCAL TIME</span>
+            <span className="font-semibold text-[#ff7563]">{timeStr}</span>
           </div>
 
-          <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-1.5">
-            <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-              TARGET EXAM
+          <div className="p-3 examify-card rounded-xl space-y-2">
+            <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.18em] block">
+              Target exam
             </label>
             <select
               value={targetExam?.id || ''}
-              onChange={(e) => {
-                onSelectTargetExam(e.target.value);
+              onChange={(event) => {
+                onSelectTargetExam(event.target.value);
                 setMobileMenuOpen(false);
               }}
-              className="w-full bg-slate-950 text-white font-semibold text-xs border border-slate-800 rounded-md p-2 focus:outline-none"
+              className="w-full bg-[#05070a] text-white font-medium text-xs border border-white/[0.08] rounded-lg p-2.5 focus:outline-none"
             >
-              {exams.map((ex) => (
-                <option key={ex.id} value={ex.id}>
-                  {ex.name}
+              <option value="" disabled>Choose your target</option>
+              {exams.map((exam) => (
+                <option key={exam.id} value={exam.id}>
+                  {exam.name}
                 </option>
               ))}
             </select>
@@ -228,22 +201,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => {
-                onToggleAudio();
-              }}
-              className="flex-1 py-2.5 px-3 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 flex items-center justify-center gap-2"
+              type="button"
+              onClick={onToggleAudio}
+              className="flex-1 py-2.5 px-3 rounded-xl examify-card text-xs font-medium text-slate-300 flex items-center justify-center gap-2"
             >
-              {isAudioPlaying ? <Volume2 className="w-4 h-4 text-amber-400" /> : <VolumeX className="w-4 h-4" />}
-              <span>{isAudioPlaying ? `AUDIO: ${currentAudioCategory.toUpperCase()}` : 'ENABLE AMBIENCE'}</span>
+              {isAudioPlaying ? <Volume2 className="w-4 h-4 text-[#ff7563]" /> : <VolumeX className="w-4 h-4" />}
+              <span>{isAudioPlaying ? currentAudioCategory.toUpperCase() : 'ENABLE AMBIENCE'}</span>
             </button>
 
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Contact us on WhatsApp"
-              className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400"
-              title="WhatsApp"
+              aria-label="WhatsApp"
+              className="p-2.5 rounded-xl examify-card text-slate-400 hover:text-emerald-400"
             >
               <MessageCircle className="w-4 h-4" />
             </a>
@@ -252,23 +223,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Follow us on Instagram"
-              className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-pink-400"
-              title="Instagram"
+              aria-label="Instagram"
+              className="p-2.5 rounded-xl examify-card text-slate-400 hover:text-pink-400"
             >
               <Instagram className="w-4 h-4" />
             </a>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenAdmin();
-              }}
-              className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400"
-              title="Admin"
-            >
-              <ShieldCheck className="w-4 h-4" />
-            </button>
           </div>
         </div>
       )}
