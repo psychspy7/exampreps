@@ -278,7 +278,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
           <div className="flex items-center gap-2 text-amber-400 font-mono font-bold text-sm">
             <ShieldCheck className="w-5 h-5" />
-            <span>PEACEGHOST ADMIN CONTROL PANEL</span>
+            <span>EXAMIFY ADMIN CONTROL PANEL</span>
           </div>
 
           <button
@@ -512,7 +512,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       </p>
                     </div>
                     <button
-                      onClick={() => setEditingQuote({ text: '', author: 'PeaceGhost Study System', category: 'discipline' })}
+                      onClick={() => setEditingQuote({ text: '', author: 'EXAMIFY', category: 'discipline' })}
                       className="px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs uppercase flex items-center gap-1.5"
                     >
                       <Plus className="w-4 h-4" /> ADD QUOTE
@@ -744,7 +744,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             />
             <input
               type="text"
-              placeholder="Author (e.g. PeaceGhost Study System)"
+              placeholder="Author (e.g. EXAMIFY)"
               value={editingQuote.author || ''}
               onChange={(e) => setEditingQuote({ ...editingQuote, author: e.target.value })}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-white"
