@@ -67,7 +67,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // Auth State — backed by real Supabase Auth, not a hardcoded passcode.
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [checkingSession, setCheckingSession] = useState<boolean>(true);
-  const [email, setEmail] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const adminUsername = import.meta.env.VITE_ADMIN_USERNAME || 'admin';
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || '';
   const [password, setPassword] = useState<string>('');
   const [authError, setAuthError] = useState<string>('');
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
@@ -134,7 +136,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setIsSigningIn(true);
     setAuthError('');
     try {
-      await adminSignIn(email.trim(), password);
+      if (!adminEmail) {
+        throw new Error('Admin login is not configured. Set VITE_ADMIN_EMAIL in your deployment environment.');
+      }
+      if (username.trim() !== adminUsername) {
+        throw new Error('Invalid username or password.');
+      }
+      await adminSignIn(adminEmail, password);
       setIsAuthenticated(true);
       setPassword('');
     } catch (err) {
@@ -310,12 +318,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
             <form onSubmit={handleLogin} className="space-y-3">
               <input
-                type="email"
+                type="text"
                 required
                 autoComplete="username"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Admin email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Admin username"
                 className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-amber-500 text-center"
               />
               <input
